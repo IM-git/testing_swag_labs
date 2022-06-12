@@ -1,0 +1,5 @@
+{
+  "browser": "chrome",
+  "wait_time": 5,
+  "singleton": "no"
+}
