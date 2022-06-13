@@ -12,33 +12,38 @@ from credential import Credential
 
 LOGINS_PASSWORD_LIST = [(login, Credential.PASSWORD) for login in Credential.LOGIN_LIST]
 
+LOGINS = Credential.LOGIN_LIST
+PASSWORD = Credential.PASSWORD
 
+
+@allure.feature("Login page.")
+@allure.link(url=Login.LINK, name='LOGIN_PAGE_LINK')
 class TestLoginPage:
     """
-    Notices:
-    When switch to the English language,
-    some words aren't translated into English.
+    Testing of the login page.
     """
 
-    @allure.feature("Login page.")
-    @allure.link(url=Login.LINK, name='LOGIN_LINK')
-    @pytest.mark.parametrize('login, password', LOGINS_PASSWORD_LIST)
-    def test_login(self, browser, login, password):
+    @pytest.mark.parametrize('login', LOGINS)
+    def test_logins(self, browser, login):
         """
         Checking login form.
+        Added in parametrize only login's value,
+        because in allure report shows data.
         """
 
         login_page = LoginPage(browser, Login.LINK)
         login_page.open_page()
         login_page.check_url()
         login_page.enter_login(login)
-        login_page.enter_password(password)
+        login_page.enter_password(PASSWORD)
         login_page.click_login_button()
         time.sleep(1)
 
-    @allure.feature("Login page.")
-    @allure.link(url=Login.LINK, name='LOGIN_LINK')
     def test_login_locked_out(self, browser):
+        """
+        Checking a text which appear
+        after failed login attempt.
+        """
 
         login_page = LoginPage(browser, Login.LINK)
         login_page.open_page()

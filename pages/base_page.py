@@ -9,7 +9,6 @@ from elements import MouseActions
 from src import GlobalErrorMessages
 from src import StatusCodes
 from src import Base
-from src import BaseText
 
 from tools import Logger
 from tools import DataSettings
@@ -32,7 +31,6 @@ class BasePage:
         self.elements = Elements()
         self.mouse_actions = None
         self.keyboard_actions = None
-        self.standard_actions = None
 
     def check_url(self) -> None:
         """Compares that specified url with the actual url."""
@@ -51,17 +49,6 @@ class BasePage:
         assert status_code_webpage == status, \
             GlobalErrorMessages.WRONG_STATUS_CODE.value
 
-    def get_url(self) -> str:
-        """Use for get current url."""
-        return self.browser.current_url
-
-    def open_page(self) -> None:
-        """Open a webpage.
-        Need to enter the url of the webpage.
-        Using string argument."""
-        Logger().info(f"Open page: {self.url}.")
-        self.browser.get(self.url)
-
     def enter_value(self, value: str, element) -> None:
         """
         Method enters value.
@@ -72,3 +59,14 @@ class BasePage:
 
         self.elements.click(self.browser, *element)
         self.keyboard_actions.enter_text(value)
+
+    def get_url(self) -> str:
+        """Use for get current url."""
+        return self.browser.current_url
+
+    def open_page(self) -> None:
+        """Open a webpage.
+        Need to enter the url of the webpage.
+        Using string argument."""
+        Logger().info(f"Open page: {self.url}.")
+        self.browser.get(self.url)

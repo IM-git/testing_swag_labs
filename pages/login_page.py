@@ -2,7 +2,6 @@ from pages import BasePage
 
 from elements import MouseActions
 from elements import KeyboardActions
-from elements import StandardActions
 from elements.base_element import BaseElement
 
 from src import Login
@@ -24,9 +23,13 @@ class LoginPage(BasePage):
 
         self.keyboard_actions = KeyboardActions(self.browser)
         self.mouse_actions = MouseActions(self.browser)
-        self.standard_actions = StandardActions(self.browser,
-                                                self.keyboard_actions,
-                                                self.mouse_actions)
+
+    def authorization(self, login, password):
+        self.open_page()
+        self.check_url()
+        self.enter_login(login)
+        self.enter_password(password)
+        self.click_login_button()
 
     def click_login_button(self) -> None:
         self.mouse_actions.one_click(Login.LOGIN_BUTTON)
