@@ -1,12 +1,16 @@
-from selenium import webdriver
+import os
+
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
+from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as SChrome
 from selenium.webdriver.chrome.options import Options as OChrome
 from selenium.webdriver.firefox.service import Service as SFirefox
 from selenium.webdriver.firefox.options import Options as OFirefox
 
 from tools.exceptions.unknown_browser import UnknownBrowser
+
+from credential import Credential
 
 from selenoid import capabilities
 
@@ -43,6 +47,7 @@ class Factory:
     @staticmethod
     def firefox_browser():
         """Browser option for using FireFox."""
+        os.environ['GH_TOKEN'] = Credential.TOKEN
         option = OFirefox()
         firefox_service = SFirefox(GeckoDriverManager().install())
         driver = webdriver.Firefox(service=firefox_service, options=option)

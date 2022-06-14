@@ -44,7 +44,7 @@ class BasePage:
             url webpage in str format,
             expected status code in int format.
         By default, we wait status code 200 - OK."""
-        status_code_webpage = requests.get(url=self.url).status_code
+        status_code_webpage: int = requests.get(url=self.url).status_code
         Logger().info(f"Checking the page status code: {status_code_webpage}.")
         assert status_code_webpage == status, \
             GlobalErrorMessages.WRONG_STATUS_CODE.value
