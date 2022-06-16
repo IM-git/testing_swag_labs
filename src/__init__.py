@@ -5,3 +5,4 @@ from .locators.base import Base
 from .locators.login import Login
 from .locators.inventory import Inventory
 from src.enums.login_page_text import LoginPageText
+from src.enums.inventory_page_error import InventoryPageError

@@ -6,14 +6,20 @@ from .base import Base
 class Inventory(Base):
 
     LINK = 'https://www.saucedemo.com/inventory.html'
+    LINK_CLICK_ABOUT = 'https://saucelabs.com/'
+    LINK_CLICK_LOGOUT = Base.LINK
+
+    ATTRIBUTE_MENU_SIDEBAR_ARIA_HIDDEN = 'aria-hidden'
+    ARIA_HIDDEN_VALUE_IF_SIDEBAR_OPEN = 'false'
+    ARIA_HIDDEN_VALUE_IF_SIDEBAR_HIDDEN = 'true'
 
     ABOUT_LINK = (By.CSS_SELECTOR, '#about_sidebar_link')
     ALL_ITEMS_LINK = (By.CSS_SELECTOR, '#inventory_sidebar_link')
     FACEBOOK_LINK = (By.CSS_SELECTOR, '.social_facebook a')
     LINKEDIN_LINK = (By.CSS_SELECTOR, '.social_linkedin a')
     LOGOUT_LINK = (By.CSS_SELECTOR, '#logout_sidebar_link')
-    MENU_BUTTON = (By.CSS_SELECTOR, '#react-burger-menu-btn')
     MENU_SIDEBAR = (By.CSS_SELECTOR, '.bm-menu-wrap')
+    MENU_SIDEBAR_BUTTON = (By.CSS_SELECTOR, '#react-burger-menu-btn')
     MENU_SIDEBAR_CLOSE = (By.CSS_SELECTOR, '#react-burger-cross-btn')
     PRODUCT_SORT_CONTAINER = (By.CSS_SELECTOR, '.product_sort_container')
     PRODUCT_SORT_BY_AZ = (By.CSS_SELECTOR, '[value="az"]')

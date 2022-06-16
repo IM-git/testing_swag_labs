@@ -14,11 +14,12 @@ class Elements:
     def check_is_displayed(browser: object,
                            locator: str,
                            element: str,
-                           time: int = 10) -> None:
+                           time: int = 10) -> bool:
         """Wait specified time or while file will be displayed."""
         Logger().info(f"Check is displayed element: {element}.")
         browser.implicitly_wait(time)
-        BaseElement.find_element(browser, locator, element).is_displayed()
+        value = BaseElement.find_element(browser, locator, element).is_displayed()
+        return value
 
     @staticmethod
     def click(browser: object, locator: str, element: str) -> None:
@@ -33,7 +34,7 @@ class Elements:
                          attribute) -> str:
         """Get the specified attribute."""
         return BaseElement.find_element(
-            browser, locator, element).click().get_attribute(attribute)
+            browser, locator, element).get_attribute(attribute)
 
     @staticmethod
     def get_text(browser: object, locator: str, element: str) -> str:
