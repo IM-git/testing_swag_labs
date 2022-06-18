@@ -1,3 +1,4 @@
+from selenium.common import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -18,8 +19,11 @@ class Elements:
         """Wait specified time or while file will be displayed."""
         Logger().info(f"Check is displayed element: {element}.")
         browser.implicitly_wait(time)
-        value = BaseElement.find_element(browser, locator, element).is_displayed()
-        return value
+        try:
+            BaseElement.find_element(browser, locator, element).is_displayed()
+        except NoSuchElementException:
+            return False
+        return True
 
     @staticmethod
     def click(browser: object, locator: str, element: str) -> None:

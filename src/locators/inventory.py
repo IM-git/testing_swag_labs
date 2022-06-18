@@ -12,6 +12,8 @@ class Inventory(Base):
     ATTRIBUTE_MENU_SIDEBAR_ARIA_HIDDEN = 'aria-hidden'
     ARIA_HIDDEN_VALUE_IF_SIDEBAR_OPEN = 'false'
     ARIA_HIDDEN_VALUE_IF_SIDEBAR_HIDDEN = 'true'
+    REMOVE_STATE = 'REMOVE'
+    ADD_STATE = 'ADD TO CART'
 
     ABOUT_LINK = (By.CSS_SELECTOR, '#about_sidebar_link')
     ALL_ITEMS_LINK = (By.CSS_SELECTOR, '#inventory_sidebar_link')
@@ -28,18 +30,33 @@ class Inventory(Base):
     PRODUCT_SORT_BY_HIGH_TO_LOW = (By.CSS_SELECTOR, '[value="hilo"]')
     RESET_APP_STATE_LINK = (By.CSS_SELECTOR, '#reset_sidebar_link')
     TWITTER_LINK = (By.CSS_SELECTOR, '.social_twitter a')
-    SAUCE_LABS_BACKPACK_BUTTON = (By.CSS_SELECTOR, '#add-to-cart-sauce-labs-backpack')
-    SAUCE_LABS_BIKE_LIGHT_BUTTON = (By.CSS_SELECTOR, '#add-to-cart-sauce-labs-bike-light')
-    SAUCE_LABS_BOLT_T_SHIRT_BUTTON = (By.CSS_SELECTOR, '#add-to-cart-sauce-labs-bolt-t-shirt')
-    SAUCE_LABS_FLEECE_JACKET_BUTTON = (By.CSS_SELECTOR, '#add-to-cart-sauce-labs-fleece-jacket')
-    SAUCE_LABS_ONESIE_BUTTON = (By.CSS_SELECTOR, '#add-to-cart-sauce-labs-onesie')
-    SAUCE_LABS_T_SHIRT_BUTTON = (By.CSS_SELECTOR, '[id="add-to-cart-test.allthethings()-t-shirt-(red)"]')
-    SAUCE_LABS_PRODUCT_BUTTONS_LIST = [SAUCE_LABS_BACKPACK_BUTTON,
-                                       SAUCE_LABS_BIKE_LIGHT_BUTTON,
-                                       SAUCE_LABS_BOLT_T_SHIRT_BUTTON,
-                                       SAUCE_LABS_FLEECE_JACKET_BUTTON,
-                                       SAUCE_LABS_ONESIE_BUTTON,
-                                       SAUCE_LABS_T_SHIRT_BUTTON]
+
+    ADD_SAUCE_LABS_BACKPACK_BUTTON = (By.CSS_SELECTOR, '#add-to-cart-sauce-labs-backpack')
+    ADD_SAUCE_LABS_BIKE_LIGHT_BUTTON = (By.CSS_SELECTOR, '#add-to-cart-sauce-labs-bike-light')
+    ADD_SAUCE_LABS_BOLT_T_SHIRT_BUTTON = (By.CSS_SELECTOR, '#add-to-cart-sauce-labs-bolt-t-shirt')
+    ADD_SAUCE_LABS_FLEECE_JACKET_BUTTON = (By.CSS_SELECTOR, '#add-to-cart-sauce-labs-fleece-jacket')
+    ADD_SAUCE_LABS_ONESIE_BUTTON = (By.CSS_SELECTOR, '#add-to-cart-sauce-labs-onesie')
+    ADD_SAUCE_LABS_T_SHIRT_BUTTON = (By.CSS_SELECTOR, '[id="add-to-cart-test.allthethings()-t-shirt-(red)"]')
+    REMOVE_SAUCE_LABS_BACKPACK_BUTTON = (By.CSS_SELECTOR, '#remove-sauce-labs-backpack')
+    REMOVE_SAUCE_LABS_BIKE_LIGHT_BUTTON = (By.CSS_SELECTOR, '#remove-sauce-labs-bike-light')
+    REMOVE_SAUCE_LABS_BOLT_T_SHIRT_BUTTON = (By.CSS_SELECTOR, '#remove-sauce-labs-bolt-t-shirt')
+    REMOVE_SAUCE_LABS_FLEECE_JACKET_BUTTON = (By.CSS_SELECTOR, '#remove-sauce-labs-fleece-jacket')
+    REMOVE_SAUCE_LABS_ONESIE_BUTTON = (By.CSS_SELECTOR, '#remove-sauce-labs-onesie')
+    REMOVE_SAUCE_LABS_T_SHIRT_BUTTON = (By.CSS_SELECTOR, '[id="remove-test.allthethings()-t-shirt-(red)"]')
+
+    SAUCE_LABS_BACKPACK_BUTTON = [ADD_SAUCE_LABS_BACKPACK_BUTTON, REMOVE_SAUCE_LABS_BACKPACK_BUTTON]
+    SAUCE_LABS_BIKE_LIGHT_BUTTON = [ADD_SAUCE_LABS_BIKE_LIGHT_BUTTON, REMOVE_SAUCE_LABS_BIKE_LIGHT_BUTTON]
+    SAUCE_LABS_BOLT_T_SHIRT_BUTTON = [ADD_SAUCE_LABS_BOLT_T_SHIRT_BUTTON, REMOVE_SAUCE_LABS_BOLT_T_SHIRT_BUTTON]
+    SAUCE_LABS_FLEECE_JACKET_BUTTON = [ADD_SAUCE_LABS_FLEECE_JACKET_BUTTON, REMOVE_SAUCE_LABS_FLEECE_JACKET_BUTTON]
+    SAUCE_LABS_ONESIE_BUTTON = [ADD_SAUCE_LABS_ONESIE_BUTTON, REMOVE_SAUCE_LABS_ONESIE_BUTTON]
+    SAUCE_LABS_T_SHIRT_BUTTON = [ADD_SAUCE_LABS_T_SHIRT_BUTTON, REMOVE_SAUCE_LABS_T_SHIRT_BUTTON]
+
+    ADD_SAUCE_LABS_PRODUCT_BUTTONS_LIST = [SAUCE_LABS_BACKPACK_BUTTON,
+                                           SAUCE_LABS_BIKE_LIGHT_BUTTON,
+                                           SAUCE_LABS_BOLT_T_SHIRT_BUTTON,
+                                           SAUCE_LABS_FLEECE_JACKET_BUTTON,
+                                           SAUCE_LABS_ONESIE_BUTTON,
+                                           SAUCE_LABS_T_SHIRT_BUTTON]
     SHOPPING_CART_BADGE = (By.CSS_SELECTOR, '.shopping_cart_badge')
 
     SHOPPING_CART_CONTAINER = (By.CSS_SELECTOR, '#shopping_cart_container')
