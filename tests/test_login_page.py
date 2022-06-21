@@ -8,12 +8,9 @@ from pages import LoginPage
 
 from src import Login
 
-from credential import Credential
+from settings import *
 
-LOGINS_PASSWORD_LIST = [(login, Credential.PASSWORD) for login in Credential.LOGIN_LIST]
-
-LOGINS = Credential.LOGIN_LIST
-PASSWORD = Credential.PASSWORD
+LOGINS_PASSWORD_LIST = [(login, PASSWORD) for login in LOGIN_LIST]
 
 
 @allure.feature("Login page.")
@@ -23,7 +20,7 @@ class TestLoginPage:
     Testing of the login page.
     """
 
-    @pytest.mark.parametrize('login', LOGINS)
+    @pytest.mark.parametrize('login', LOGIN_LIST)
     def test_logins(self, browser, login):
         """
         Checking login form.
@@ -50,8 +47,8 @@ class TestLoginPage:
         login_page.open_page()
         login_page.check_url()
         login_page.check_status_code()
-        login_page.enter_login(Credential.LOGIN_LOCKED)
-        login_page.enter_password(Credential.PASSWORD)
+        login_page.enter_login(LOGIN_LOCKED)
+        login_page.enter_password(PASSWORD)
         login_page.click_login_button()
         login_page.check_error_message_locked_user()
         time.sleep(1)
