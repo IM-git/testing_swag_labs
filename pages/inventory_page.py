@@ -1,3 +1,5 @@
+import time
+
 from selenium.common import NoSuchElementException
 
 from .base_page import BasePage
@@ -8,6 +10,7 @@ from elements import KeyboardActions
 from tools import Logger
 from tools import DataSettings
 from tools import RandomTools
+from tools import ComparisonTools
 
 from src import Inventory
 from src import InventoryPageError
@@ -25,19 +28,35 @@ class InventoryPage(BasePage):
         self.keyboard_actions = KeyboardActions(self.browser)
         self.mouse_actions = MouseActions(self.browser)
 
-    def check_value_buttons(self):
-        values = Inventory.ADD_SAUCE_LABS_PRODUCT_BUTTONS_LIST
-        for value in values:
-            try:
-                self.check_value_cart(value[1], Inventory.ADD_STATE)
-            except NoSuchElementException:
-                print(InventoryPageError.WRONG_VALUE_OF_THE_STATE.value)
-
-    def check_that_all_was_reset_to_cart_badge(self):
+    def check_that_all_was_reset_to_cart_badge(self) -> None:
         state = self.elements.check_is_displayed(
             self.browser, *Inventory.SHOPPING_CART_BADGE, 1)
         assert state is False,\
             InventoryPageError.WRONG_AFTER_RESET_SHOPPING_CART_BADGE.value
+
+    def check_prices_by_ascending_sort_order(self) -> None:
+        prices_list = self.get_list_with_values(Inventory.INVENTORY_ITEM_PRICES)
+        value = ComparisonTools.compare_sequences_numbers_by_sort_order(prices_list)
+        assert value is False, \
+            InventoryPageError.WRONG_DESCENDING_SORT_ORDER.value
+
+    def check_prices_by_descending_sort_order(self) -> None:
+        prices_list = self.get_list_with_values(Inventory.INVENTORY_ITEM_PRICES)
+        value = ComparisonTools.compare_sequences_numbers_by_sort_order(prices_list)
+        assert value is True, \
+            InventoryPageError.WRONG_DESCENDING_SORT_ORDER.value
+
+    def check_names_by_descending_sort_order(self) -> None:
+        names_list = self.get_list_with_values(Inventory.INVENTORY_ITEM_NAMES)
+        value = ComparisonTools.compare_sequences_names_sort_order(names_list)
+        assert value is True, \
+            InventoryPageError.WRONG_DESCENDING_SORT_ORDER.value
+
+    def check_names_by_ascending_sort_order(self) -> None:
+        name_list = self.get_list_with_values(Inventory.INVENTORY_ITEM_NAMES)
+        value = ComparisonTools.compare_sequences_names_sort_order(name_list)
+        assert value is False, \
+            InventoryPageError.WRONG_DESCENDING_SORT_ORDER.value
 
     def check_shopping_cart_badge(self, clicks_made: int) -> None:
         """Check of the value in shopping cart badge."""
@@ -50,6 +69,14 @@ class InventoryPage(BasePage):
         state = self.elements.get_text(self.browser, *values)
         assert state == expected_state,\
             InventoryPageError.WRONG_VALUE_OF_THE_STATE.value
+
+    def check_value_buttons(self) -> None:
+        values = Inventory.ADD_SAUCE_LABS_PRODUCT_BUTTONS_LIST
+        for value in values:
+            try:
+                self.check_value_cart(value[1], Inventory.ADD_STATE)
+            except NoSuchElementException:
+                print(InventoryPageError.WRONG_VALUE_OF_THE_STATE.value)
 
     def click_button_in_sidebar(self,
                                 element: tuple,
@@ -67,6 +94,44 @@ class InventoryPage(BasePage):
         self.check_value_cart(value[0], Inventory.ADD_STATE)
         self.elements.click(self.browser, *value[0])
         self.check_value_cart(value[1], Inventory.REMOVE_STATE)
+
+    def click_close_menu_sidebar(self) -> None:
+        self.elements.wait_element_to_be_clickable(self.browser, *Inventory.MENU_SIDEBAR_CLOSE)
+        self.click_sidebar(
+            element=Inventory.MENU_SIDEBAR_CLOSE,
+            attribute_value=Inventory.ARIA_HIDDEN_VALUE_IF_SIDEBAR_HIDDEN,
+            error_message=InventoryPageError.SIDEBAR_IS_DISPLAYED.value)
+
+    def click_menu_sidebar(self) -> None:
+        self.click_sidebar(
+            element=Inventory.MENU_SIDEBAR_BUTTON,
+            attribute_value=Inventory.ARIA_HIDDEN_VALUE_IF_SIDEBAR_OPEN,
+            error_message=InventoryPageError.SIDEBAR_NOT_DISPLAYED.value)
+
+    def click_product_sort_container(self) -> None:
+        self.click_button_in_sidebar(
+            element=Inventory.PRODUCT_SORT_CONTAINER,
+            expect_url=Inventory.LINK,
+            error_message=InventoryPageError.WRONG_WEBPAGE.value)
+
+    def click_random_value_in_container(self) -> None:
+        """
+        Performing the random clicks on the value in container.
+        Checking the correct sort order in prices or names
+        (it related with type of the sort order).
+        """
+        element_number = RandomTools.RandomValue.get_random_number(
+            0, len(Inventory.PRODUCT_SORT_BY)-1)
+        Logger().info(f'Click on the product sort container.')
+        self.elements.click(self.browser, *Inventory.PRODUCT_SORT_BY[element_number])
+        if element_number == 0:
+            self.check_names_by_ascending_sort_order()
+        elif element_number == 1:
+            self.check_names_by_descending_sort_order()
+        elif element_number == 2:
+            self.check_prices_by_ascending_sort_order()
+        elif element_number == 3:
+            self.check_prices_by_descending_sort_order()
 
     def click_sidebar_all_items(self) -> None:
         self.click_button_in_sidebar(
@@ -92,17 +157,9 @@ class InventoryPage(BasePage):
             expect_url=Inventory.LINK,
             error_message=InventoryPageError.WRONG_WEBPAGE.value)
 
-    def click_close_menu_sidebar(self) -> None:
-        self.click_sidebar(
-            element=Inventory.MENU_SIDEBAR_CLOSE,
-            attribute_value=Inventory.ARIA_HIDDEN_VALUE_IF_SIDEBAR_HIDDEN,
-            error_message=InventoryPageError.SIDEBAR_IS_DISPLAYED.value)
-
-    def click_menu_sidebar(self) -> None:
-        self.click_sidebar(
-            element=Inventory.MENU_SIDEBAR_BUTTON,
-            attribute_value=Inventory.ARIA_HIDDEN_VALUE_IF_SIDEBAR_OPEN,
-            error_message=InventoryPageError.SIDEBAR_NOT_DISPLAYED.value)
+    def click_shopping_cart_container(self) -> None:
+        self.elements.check_is_displayed(self.browser, *Inventory.PRODUCT_SORT_CONTAINER)
+        self.elements.click(self.browser, *Inventory.PRODUCT_SORT_CONTAINER)
 
     def click_sidebar(self,
                       element: tuple,
@@ -114,6 +171,17 @@ class InventoryPage(BasePage):
             self.browser, *Inventory.MENU_SIDEBAR,
             Inventory.ATTRIBUTE_MENU_SIDEBAR_ARIA_HIDDEN)
         assert attribute == attribute_value, error_message
+
+    def delete_all_in_shopping_cart_container(self):
+        self.click_menu_sidebar()
+        self.click_sidebar_reset_app_state()
+
+    def get_list_with_values(self, elements: list) -> list:
+        list_with_values = []
+        for element in elements:
+            value = self.elements.get_text(self.browser, *element)
+            list_with_values.append(value)
+        return list_with_values
 
     def get_shopping_cart_badge_value(self) -> int:
         return int(self.elements.get_text(

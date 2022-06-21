@@ -30,19 +30,6 @@ class TestInventoryPage:
         inventory_page.click_menu_sidebar()
         time.sleep(1)
 
-    @pytest.mark.xfail(reason="In the progress to correction.")
-    def test_close_menu_sidebar(self, browser):
-        """
-        * Need to find solution,
-          how to wait some time for state
-          while will the value change.
-        """
-        inventory_page = InventoryPage(browser, Inventory.LINK)
-        inventory_page.check_url()
-        inventory_page.click_menu_sidebar()
-        inventory_page.click_close_menu_sidebar()
-        time.sleep(1)
-
     def test_click_sidebar_all_items(self, browser):
         inventory_page = InventoryPage(browser, Inventory.LINK)
         inventory_page.check_url()
@@ -72,13 +59,43 @@ class TestInventoryPage:
         Perform random quantity clicks
         on the different 'ADD TO CARD' and compare
         with quantity in the shopping cart badge.
+        * Performing deletion in this test.
         """
         inventory_page = InventoryPage(browser, Inventory.LINK)
         inventory_page.check_url()
         inventory_page.random_clicks_add_to_card()
         time.sleep(1)
+        inventory_page.delete_all_in_shopping_cart_container()
+        time.sleep(1)
 
-    @pytest.mark.xfail(reason="After click to a reset buttons value don't change.")
+    def test_click_chopping_cart_container(self, browser):
+        """Perform click on the chopping cart icon."""
+        inventory_page = InventoryPage(browser, Inventory.LINK)
+        inventory_page.check_url()
+        inventory_page.click_shopping_cart_container()
+        time.sleep(1)
+
+    def test_click_product_sort_container(self, browser):
+        inventory_page = InventoryPage(browser, Inventory.LINK)
+        inventory_page.check_url()
+        inventory_page.click_shopping_cart_container()
+        inventory_page.click_random_value_in_container()
+        time.sleep(1)
+
+    # @pytest.mark.xfail(reason="In the progress to correction.")
+    def test_close_menu_sidebar(self, browser):
+        """
+        * Need to find solution,
+          how to wait some time for state
+          while will the value change.
+        """
+        inventory_page = InventoryPage(browser, Inventory.LINK)
+        inventory_page.check_url()
+        inventory_page.click_menu_sidebar()
+        inventory_page.click_close_menu_sidebar()
+        time.sleep(1)
+
+    @pytest.mark.xfail(reason="BUG! After click to a reset buttons value don't change.")
     def test_to_operation_sidebar_reset_app_state(self, browser):
         """
         Perform random quantity clicks

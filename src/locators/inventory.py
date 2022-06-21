@@ -7,6 +7,7 @@ class Inventory(Base):
 
     LINK = 'https://www.saucedemo.com/inventory.html'
     LINK_CLICK_ABOUT = 'https://saucelabs.com/'
+    LINK_CLICK_SHOPPING_CART_CONTAINER = 'https://www.saucedemo.com/cart.html'
     LINK_CLICK_LOGOUT = Base.LINK
 
     ATTRIBUTE_MENU_SIDEBAR_ARIA_HIDDEN = 'aria-hidden'
@@ -18,6 +19,11 @@ class Inventory(Base):
     ABOUT_LINK = (By.CSS_SELECTOR, '#about_sidebar_link')
     ALL_ITEMS_LINK = (By.CSS_SELECTOR, '#inventory_sidebar_link')
     FACEBOOK_LINK = (By.CSS_SELECTOR, '.social_facebook a')
+    INVENTORY_ITEM_NAME = (By.CSS_SELECTOR, '.inventory_item_name')
+
+    INVENTORY_ITEM_PRICE = (By.CSS_SELECTOR, '.inventory_item_price')
+    INVENTORY_ITEM_PRICE_XPATH = (By.XPATH, '//div[@class="inventory_item_price"]')
+
     LINKEDIN_LINK = (By.CSS_SELECTOR, '.social_linkedin a')
     LOGOUT_LINK = (By.CSS_SELECTOR, '#logout_sidebar_link')
     MENU_SIDEBAR = (By.CSS_SELECTOR, '.bm-menu-wrap')
@@ -28,6 +34,24 @@ class Inventory(Base):
     PRODUCT_SORT_BY_ZA = (By.CSS_SELECTOR, '[value="za"]')
     PRODUCT_SORT_BY_LOW_TO_HIGH = (By.CSS_SELECTOR, '[value="lohi"]')
     PRODUCT_SORT_BY_HIGH_TO_LOW = (By.CSS_SELECTOR, '[value="hilo"]')
+
+    PRODUCT_SORT_BY = [PRODUCT_SORT_BY_AZ,
+                       PRODUCT_SORT_BY_ZA,
+                       PRODUCT_SORT_BY_LOW_TO_HIGH,
+                       PRODUCT_SORT_BY_HIGH_TO_LOW]
+    INVENTORY_ITEM_PRICES = [(By.XPATH, '(// div[@class ="inventory_item_price"])[1]'),
+                             (By.XPATH, '(// div[@class ="inventory_item_price"])[2]'),
+                             (By.XPATH, '(// div[@class ="inventory_item_price"])[3]'),
+                             (By.XPATH, '(// div[@class ="inventory_item_price"])[4]'),
+                             (By.XPATH, '(// div[@class ="inventory_item_price"])[5]'),
+                             (By.XPATH, '(// div[@class ="inventory_item_price"])[6]')]
+    INVENTORY_ITEM_NAMES = [(By.XPATH, '(// div[@class ="inventory_item_name"])[1]'),
+                            (By.XPATH, '(// div[@class ="inventory_item_name"])[2]'),
+                            (By.XPATH, '(// div[@class ="inventory_item_name"])[3]'),
+                            (By.XPATH, '(// div[@class ="inventory_item_name"])[4]'),
+                            (By.XPATH, '(// div[@class ="inventory_item_name"])[5]'),
+                            (By.XPATH, '(// div[@class ="inventory_item_name"])[6]')]
+
     RESET_APP_STATE_LINK = (By.CSS_SELECTOR, '#reset_sidebar_link')
     TWITTER_LINK = (By.CSS_SELECTOR, '.social_twitter a')
 

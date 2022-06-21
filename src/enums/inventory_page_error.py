@@ -12,3 +12,4 @@ class InventoryPageError(Enum):
     WRONG_QUANTITY_SHOPPING_CART_BADGE =\
         "The number of selected items" \
         "doesn't match the value in the shopping cart badge!!"
+    WRONG_DESCENDING_SORT_ORDER = "Sequence of the values by descending sort order is wrong!!"

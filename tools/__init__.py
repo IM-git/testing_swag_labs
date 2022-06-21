@@ -9,3 +9,5 @@ from .test_settings import WebDriver
 from .test_settings import Browser
 from tools.test_settings.checks_browser_settings import ChecksBrowserSettings
 from .random_tools import RandomTools
+from .comparison_tools import ComparisonTools
+
