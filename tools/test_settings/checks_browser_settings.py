@@ -24,3 +24,22 @@ class ChecksBrowserSettings:
         else:
             raise InvalidConditionInTest
         return browser
+
+    @staticmethod
+    def passing_browser_to_elements(value):
+        """
+        This method is used to pass necessary browser to
+        the elements class.
+        The browser value relate with singleton patter.
+        If we use a singleton,
+        browser will be use from WebDriver().driver method.
+        Else, the browser value that was provided
+        from the test file will be used.
+        """
+        if DATA["singleton"].lower() == "yes" and value is None:
+            browser = None
+        elif DATA["singleton"].lower() == "no" and value is not None:
+            browser = value
+        else:
+            raise InvalidConditionInTest
+        return browser

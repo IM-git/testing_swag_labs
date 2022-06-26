@@ -28,7 +28,8 @@ class BasePage:
         self.browser = ChecksBrowserSettings.checks_the_use_of_singleton(
             browser)
         self.url = url
-        self.elements = Elements()
+        # self.elements = Elements(ChecksBrowserSettings.passing_browser_to_elements(browser))
+        self.elements = Elements(self.browser)
         self.mouse_actions = None
         self.keyboard_actions = None
 
@@ -57,7 +58,7 @@ class BasePage:
         """
         Logger().info(f"Enter the value in the '{element[1]}' field.")
 
-        self.elements.click(self.browser, *element)
+        self.elements.click(*element)
         self.keyboard_actions.enter_text(value)
 
     def get_url(self) -> str:

@@ -7,6 +7,7 @@ import pytest
 from pages import InventoryPage
 
 from src import Inventory
+from src import InventoryPageError
 
 
 @allure.feature("Inventory page.")
@@ -41,6 +42,7 @@ class TestInventoryPage:
         inventory_page.check_url()
         inventory_page.click_menu_sidebar()
         inventory_page.click_sidebar_about()
+        time.sleep(2)
 
     def test_click_sidebar_logout(self, browser):
         inventory_page = InventoryPage(browser, Inventory.LINK)
@@ -81,6 +83,12 @@ class TestInventoryPage:
         inventory_page.click_shopping_cart_container()
         inventory_page.click_random_value_in_container()
         time.sleep(1)
+
+    @pytest.mark.parametrize('element, expect_url', Inventory.PARAMETRIZE_SOCIAL)
+    def test_social_link(self, browser, element, expect_url):
+        inventory_page = InventoryPage(browser, Inventory.LINK)
+        inventory_page.check_url()
+        inventory_page.click_social_link(element, expect_url, InventoryPageError.WRONG_WEBPAGE.value)
 
     # @pytest.mark.xfail(reason="In the progress to correction.")
     def test_close_menu_sidebar(self, browser):

@@ -8,6 +8,10 @@ class Inventory(Base):
     LINK = 'https://www.saucedemo.com/inventory.html'
     LINK_CLICK_ABOUT = 'https://saucelabs.com/'
     LINK_CLICK_SHOPPING_CART_CONTAINER = 'https://www.saucedemo.com/cart.html'
+    URL_FACEBOOK = 'https://web.facebook.com/saucelabs?_rdc=1&_rdr'
+    URL_LINKEDIN = 'https://www.linkedin.com/company/sauce-labs/?original_referer='
+    URL_TWITTER = 'https://twitter.com/saucelabs'
+
     LINK_CLICK_LOGOUT = Base.LINK
 
     ATTRIBUTE_MENU_SIDEBAR_ARIA_HIDDEN = 'aria-hidden'
@@ -18,13 +22,18 @@ class Inventory(Base):
 
     ABOUT_LINK = (By.CSS_SELECTOR, '#about_sidebar_link')
     ALL_ITEMS_LINK = (By.CSS_SELECTOR, '#inventory_sidebar_link')
-    FACEBOOK_LINK = (By.CSS_SELECTOR, '.social_facebook a')
     INVENTORY_ITEM_NAME = (By.CSS_SELECTOR, '.inventory_item_name')
 
     INVENTORY_ITEM_PRICE = (By.CSS_SELECTOR, '.inventory_item_price')
     INVENTORY_ITEM_PRICE_XPATH = (By.XPATH, '//div[@class="inventory_item_price"]')
 
+    FACEBOOK_LINK = (By.CSS_SELECTOR, '.social_facebook a')
     LINKEDIN_LINK = (By.CSS_SELECTOR, '.social_linkedin a')
+    TWITTER_LINK = (By.CSS_SELECTOR, '.social_twitter a')
+    PARAMETRIZE_SOCIAL = [(FACEBOOK_LINK, URL_FACEBOOK),
+                          (LINKEDIN_LINK, URL_LINKEDIN),
+                          (TWITTER_LINK, URL_TWITTER)]
+
     LOGOUT_LINK = (By.CSS_SELECTOR, '#logout_sidebar_link')
     MENU_SIDEBAR = (By.CSS_SELECTOR, '.bm-menu-wrap')
     MENU_SIDEBAR_BUTTON = (By.CSS_SELECTOR, '#react-burger-menu-btn')
@@ -53,7 +62,6 @@ class Inventory(Base):
                             (By.XPATH, '(// div[@class ="inventory_item_name"])[6]')]
 
     RESET_APP_STATE_LINK = (By.CSS_SELECTOR, '#reset_sidebar_link')
-    TWITTER_LINK = (By.CSS_SELECTOR, '.social_twitter a')
 
     ADD_SAUCE_LABS_BACKPACK_BUTTON = (By.CSS_SELECTOR, '#add-to-cart-sauce-labs-backpack')
     ADD_SAUCE_LABS_BIKE_LIGHT_BUTTON = (By.CSS_SELECTOR, '#add-to-cart-sauce-labs-bike-light')

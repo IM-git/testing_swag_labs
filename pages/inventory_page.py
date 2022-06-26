@@ -30,7 +30,7 @@ class InventoryPage(BasePage):
 
     def check_that_all_was_reset_to_cart_badge(self) -> None:
         state = self.elements.check_is_displayed(
-            self.browser, *Inventory.SHOPPING_CART_BADGE, 1)
+            *Inventory.SHOPPING_CART_BADGE, 1)
         assert state is False,\
             InventoryPageError.WRONG_AFTER_RESET_SHOPPING_CART_BADGE.value
 
@@ -66,7 +66,7 @@ class InventoryPage(BasePage):
 
     def check_value_cart(self, values, expected_state: str) -> None:
         """The value of the button."""
-        state = self.elements.get_text(self.browser, *values)
+        state = self.elements.get_text(*values)
         assert state == expected_state,\
             InventoryPageError.WRONG_VALUE_OF_THE_STATE.value
 
@@ -78,13 +78,36 @@ class InventoryPage(BasePage):
             except NoSuchElementException:
                 print(InventoryPageError.WRONG_VALUE_OF_THE_STATE.value)
 
-    def click_button_in_sidebar(self,
-                                element: tuple,
-                                expect_url: str,
-                                error_message: str) -> None:
-        self.elements.wait_element_to_be_clickable(self.browser, *element)
-        self.elements.click(self.browser, *element)
+    #   move the method to the base_page class
+    #   change InventoryPageError.WRONG_VALUE_OF_THE_STATE by exception(tools/exceptions/.)
+    def change_window(self, original_window: str) -> None:
+        """Will change window in browser,
+        if link will be open in the new tab."""
+        for window_handle in self.browser.window_handles:
+            if window_handle != original_window:
+                self.browser.switch_to.window(window_handle)
+                break
+
+    def click_button(self,
+                     element: tuple,
+                     expect_url: str,
+                     error_message: str) -> None:
+        self.elements.wait_element_to_be_clickable(*element)
+        self.elements.click(*element)
         got_url = self.get_url()
+        assert got_url == expect_url, error_message
+
+    def click_social_link(self,
+                          element: tuple,
+                          expect_url: str,
+                          error_message: str) -> None:
+        self.elements.wait_element_to_be_clickable(*element)
+        original_window = self.browser.current_window_handle
+        self.elements.click(*element)
+        self.change_window(original_window)
+        got_url = self.get_url()
+        self.browser.close()
+        self.browser.switch_to.window(original_window)
         assert got_url == expect_url, error_message
 
     def click_add_to_card(self) -> None:
@@ -92,11 +115,11 @@ class InventoryPage(BasePage):
         value = RandomTools.RandomValue.get_random_value_from_sequence(values)
         values.remove(value)
         self.check_value_cart(value[0], Inventory.ADD_STATE)
-        self.elements.click(self.browser, *value[0])
+        self.elements.click(*value[0])
         self.check_value_cart(value[1], Inventory.REMOVE_STATE)
 
     def click_close_menu_sidebar(self) -> None:
-        self.elements.wait_element_to_be_clickable(self.browser, *Inventory.MENU_SIDEBAR_CLOSE)
+        self.elements.wait_element_to_be_clickable(*Inventory.MENU_SIDEBAR_CLOSE)
         self.click_sidebar(
             element=Inventory.MENU_SIDEBAR_CLOSE,
             attribute_value=Inventory.ARIA_HIDDEN_VALUE_IF_SIDEBAR_HIDDEN,
@@ -109,7 +132,7 @@ class InventoryPage(BasePage):
             error_message=InventoryPageError.SIDEBAR_NOT_DISPLAYED.value)
 
     def click_product_sort_container(self) -> None:
-        self.click_button_in_sidebar(
+        self.click_button(
             element=Inventory.PRODUCT_SORT_CONTAINER,
             expect_url=Inventory.LINK,
             error_message=InventoryPageError.WRONG_WEBPAGE.value)
@@ -123,7 +146,7 @@ class InventoryPage(BasePage):
         element_number = RandomTools.RandomValue.get_random_number(
             0, len(Inventory.PRODUCT_SORT_BY)-1)
         Logger().info(f'Click on the product sort container.')
-        self.elements.click(self.browser, *Inventory.PRODUCT_SORT_BY[element_number])
+        self.elements.click(*Inventory.PRODUCT_SORT_BY[element_number])
         if element_number == 0:
             self.check_names_by_ascending_sort_order()
         elif element_number == 1:
@@ -134,41 +157,59 @@ class InventoryPage(BasePage):
             self.check_prices_by_descending_sort_order()
 
     def click_sidebar_all_items(self) -> None:
-        self.click_button_in_sidebar(
+        self.click_button(
             element=Inventory.ALL_ITEMS_LINK,
             expect_url=Inventory.LINK,
             error_message=InventoryPageError.WRONG_WEBPAGE.value)
 
     def click_sidebar_about(self) -> None:
-        self.click_button_in_sidebar(
+        self.click_button(
             element=Inventory.ABOUT_LINK,
             expect_url=Inventory.LINK_CLICK_ABOUT,
             error_message=InventoryPageError.WRONG_WEBPAGE.value)
 
     def click_sidebar_logout(self) -> None:
-        self.click_button_in_sidebar(
+        self.click_button(
             element=Inventory.LOGOUT_LINK,
             expect_url=Inventory.LINK_CLICK_LOGOUT,
             error_message=InventoryPageError.WRONG_WEBPAGE.value)
 
     def click_sidebar_reset_app_state(self) -> None:
-        self.click_button_in_sidebar(
+        self.click_button(
             element=Inventory.RESET_APP_STATE_LINK,
             expect_url=Inventory.LINK,
             error_message=InventoryPageError.WRONG_WEBPAGE.value)
 
+    def click_twitter_link(self) -> None:
+        self.click_social_link(
+            element=Inventory.TWITTER_LINK,
+            expect_url=Inventory.URL_TWITTER,
+            error_message=InventoryPageError.WRONG_WEBPAGE.value)
+
+    def click_facebook_link(self) -> None:
+        self.click_social_link(
+            element=Inventory.FACEBOOK_LINK,
+            expect_url=Inventory.URL_FACEBOOK,
+            error_message=InventoryPageError.WRONG_WEBPAGE.value)
+
+    def click_linkedin_link(self) -> None:
+        self.click_social_link(
+            element=Inventory.LINKEDIN_LINK,
+            expect_url=Inventory.URL_LINKEDIN,
+            error_message=InventoryPageError.WRONG_WEBPAGE.value)
+
     def click_shopping_cart_container(self) -> None:
-        self.elements.check_is_displayed(self.browser, *Inventory.PRODUCT_SORT_CONTAINER)
-        self.elements.click(self.browser, *Inventory.PRODUCT_SORT_CONTAINER)
+        self.elements.check_is_displayed(*Inventory.PRODUCT_SORT_CONTAINER)
+        self.elements.click(*Inventory.PRODUCT_SORT_CONTAINER)
 
     def click_sidebar(self,
                       element: tuple,
                       attribute_value: str,
                       error_message: str) -> None:
-        self.elements.check_is_displayed(self.browser, *element)
-        self.elements.click(self.browser, *element)
+        self.elements.check_is_displayed(*element)
+        self.elements.click(*element)
         attribute = self.elements.get_to_attribute(
-            self.browser, *Inventory.MENU_SIDEBAR,
+            *Inventory.MENU_SIDEBAR,
             Inventory.ATTRIBUTE_MENU_SIDEBAR_ARIA_HIDDEN)
         assert attribute == attribute_value, error_message
 
@@ -179,13 +220,12 @@ class InventoryPage(BasePage):
     def get_list_with_values(self, elements: list) -> list:
         list_with_values = []
         for element in elements:
-            value = self.elements.get_text(self.browser, *element)
+            value = self.elements.get_text(*element)
             list_with_values.append(value)
         return list_with_values
 
     def get_shopping_cart_badge_value(self) -> int:
-        return int(self.elements.get_text(
-            self.browser, *Inventory.SHOPPING_CART_BADGE))
+        return int(self.elements.get_text(*Inventory.SHOPPING_CART_BADGE))
 
     def random_clicks_add_to_card(self) -> None:
         """

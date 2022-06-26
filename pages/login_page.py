@@ -42,9 +42,7 @@ class LoginPage(BasePage):
         self.enter_value(password, Login.PASSWORD_INPUT)
 
     def check_error_message_locked_user(self):
-        self.elements.check_is_displayed(
-            self.browser, *Login.TEXT_ERROR_MESSAGE)
-        got_text = self.elements.get_text(
-            self.browser, *Login.TEXT_ERROR_MESSAGE)
+        self.elements.check_is_displayed(*Login.TEXT_ERROR_MESSAGE)
+        got_text = self.elements.get_text(*Login.TEXT_ERROR_MESSAGE)
         assert got_text == LoginPageText.ERROR_TEXT.value,\
             LoginPageError.WRONG_ERROR_MESSAGE.value
