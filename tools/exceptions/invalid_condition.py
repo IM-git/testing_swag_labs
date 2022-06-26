@@ -31,5 +31,5 @@ class InvalidConditionInTest(BaseExceptions):
                f"Hint. When using singleton," \
                f"in the test doesn't need paste browser in the class page.\n" \
                f"And vice versa if don't use singleton.\n" \
-               f"Example: if singleton - 'yes' => MainPage(browser, Main.LINK);\n" \
-               f"if singleton - 'no' => MainPage(Main.LINK);"
+               f"Example: if singleton - 'yes' => MainPage(Main.LINK);\n" \
+               f"if singleton - 'no' => MainPage(browser, Main.LINK);"

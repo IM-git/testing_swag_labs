@@ -4,6 +4,7 @@ from selenium.common import NoSuchElementException
 
 from .base_page import BasePage
 
+from elements import Elements
 from elements import MouseActions
 from elements import KeyboardActions
 
@@ -25,12 +26,13 @@ class InventoryPage(BasePage):
 
         Logger().info(f'The use of singleton: {DATA["singleton"].lower()}.')
 
+        self.elements = Elements(self.browser)
         self.keyboard_actions = KeyboardActions(self.browser)
         self.mouse_actions = MouseActions(self.browser)
 
     def check_that_all_was_reset_to_cart_badge(self) -> None:
         state = self.elements.check_is_displayed(
-            *Inventory.SHOPPING_CART_BADGE, 1)
+            *Inventory.SHOPPING_CART_BADGE, time=1)
         assert state is False,\
             InventoryPageError.WRONG_AFTER_RESET_SHOPPING_CART_BADGE.value
 

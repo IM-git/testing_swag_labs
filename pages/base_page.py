@@ -29,7 +29,7 @@ class BasePage:
             browser)
         self.url = url
         # self.elements = Elements(ChecksBrowserSettings.passing_browser_to_elements(browser))
-        self.elements = Elements(self.browser)
+        self.elements = None
         self.mouse_actions = None
         self.keyboard_actions = None
 

@@ -1,14 +1,17 @@
 from selenium import webdriver
 from .base_element import BaseElement
 
+from tools import ChecksBrowserSettings
+
 
 class MouseActions:
     """
     Here the common mouse actions.
     """
 
-    def __init__(self, browser):
-        self.__browser = browser
+    def __init__(self, browser: object = None):
+        self.__browser = ChecksBrowserSettings.checks_the_use_of_singleton(
+            browser)
         self.__base_element = BaseElement()
 
     def move_to_element(self, element) -> None:

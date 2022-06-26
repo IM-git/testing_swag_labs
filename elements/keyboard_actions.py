@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from tools import ChecksBrowserSettings
 
 
 class KeyboardActions:
@@ -7,8 +8,9 @@ class KeyboardActions:
     Here the common keyboard actions.
     """
 
-    def __init__(self, browser):
-        self.__browser = browser
+    def __init__(self, browser: object = None):
+        self.__browser = ChecksBrowserSettings.checks_the_use_of_singleton(
+            browser)
 
     def enter_text(self, text) -> None:
         """Enter text."""

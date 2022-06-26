@@ -1,5 +1,6 @@
 from pages import BasePage
 
+from elements import Elements
 from elements import MouseActions
 from elements import KeyboardActions
 from elements.base_element import BaseElement
@@ -22,6 +23,7 @@ class LoginPage(BasePage):
 
         Logger().info(f'The use of singleton: {DATA["singleton"].lower()}.')
 
+        self.elements = Elements(self.browser)
         self.keyboard_actions = KeyboardActions(self.browser)
         self.mouse_actions = MouseActions(self.browser)
 
