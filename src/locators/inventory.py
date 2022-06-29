@@ -1,5 +1,7 @@
 from selenium.webdriver.common.by import By
 
+import pytest
+
 from .base import Base
 
 
@@ -31,7 +33,7 @@ class Inventory(Base):
     LINKEDIN_LINK = (By.CSS_SELECTOR, '.social_linkedin a')
     TWITTER_LINK = (By.CSS_SELECTOR, '.social_twitter a')
     PARAMETRIZE_SOCIAL = [(FACEBOOK_LINK, URL_FACEBOOK),
-                          (LINKEDIN_LINK, URL_LINKEDIN),
+                          pytest.param(LINKEDIN_LINK, URL_LINKEDIN, marks=pytest.mark.xfail),
                           (TWITTER_LINK, URL_TWITTER)]
 
     LOGOUT_LINK = (By.CSS_SELECTOR, '#logout_sidebar_link')
