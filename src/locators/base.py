@@ -6,6 +6,13 @@ import pytest
 class Base:
     TIME = 10
     LINK = "https://www.saucedemo.com/"
+    LINK_CLICK_ABOUT = 'https://saucelabs.com/'
+
+    ATTRIBUTE_MENU_SIDEBAR_ARIA_HIDDEN = 'aria-hidden'
+    ARIA_HIDDEN_VALUE_IF_SIDEBAR_OPEN = 'false'
+    ARIA_HIDDEN_VALUE_IF_SIDEBAR_HIDDEN = 'true'
+    REMOVE_STATE = 'REMOVE'
+    ADD_STATE = 'ADD TO CART'
 
     URL_FACEBOOK = 'https://web.facebook.com/saucelabs?_rdc=1&_rdr'
     URL_LINKEDIN = 'https://www.linkedin.com/company/sauce-labs/?original_referer='
@@ -29,3 +36,4 @@ class Base:
 
     SHOPPING_CART_BADGE = (By.CSS_SELECTOR, '.shopping_cart_badge')
     SHOPPING_CART_CONTAINER = (By.CSS_SELECTOR, '#shopping_cart_container')
+    SHOPPING_CART_LINK = (By.CSS_SELECTOR, '.shopping_cart_link')

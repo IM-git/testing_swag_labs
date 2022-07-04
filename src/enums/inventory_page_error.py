@@ -1,13 +1,11 @@
 from enum import Enum
 
 
+#   Think about necessary add BasePageError like a parent class(Inheritance)
 class InventoryPageError(Enum):
 
     ERROR = "(>_<)## ERROR!!"
-    SIDEBAR_NOT_DISPLAYED = "Menu sidebar isn't displaying!!"
-    SIDEBAR_IS_DISPLAYED = "Menu sidebar is displaying!!"
-    WRONG_AFTER_RESET_SHOPPING_CART_BADGE = "Shopping cart badge have to be empty."
-    WRONG_WEBPAGE = "This isn't an expected webpage!!"
+    WRONG_WEBPAGE = "This isn't an expected webpage!!"  # Exist in the BasePageError
     WRONG_VALUE_OF_THE_STATE = "An incorrect status value was received!!"
     WRONG_QUANTITY_SHOPPING_CART_BADGE =\
         "The number of selected items" \

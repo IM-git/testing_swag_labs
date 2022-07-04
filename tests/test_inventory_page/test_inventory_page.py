@@ -81,6 +81,7 @@ class TestInventoryPage:
     def test_social_link(self, browser, element, expect_url):
         inventory_page = InventoryPage(browser, Inventory.LINK)
         inventory_page.check_url()
+        #   need to find other realization, because it isn't pageobject.
         inventory_page.click_social_link(element, expect_url, InventoryPageError.WRONG_WEBPAGE.value)
 
     # @pytest.mark.xfail(reason="In the progress to correction.")
@@ -105,3 +106,9 @@ class TestInventoryPage:
         inventory_page.click_sidebar_reset_app_state()
         inventory_page.check_that_all_was_reset_to_cart_badge()
         inventory_page.check_value_buttons()
+
+    def test_click_shopping_cart_link(self, browser):
+        inventory_page = InventoryPage(browser, Inventory.LINK)
+        inventory_page.check_url()
+        inventory_page.click_shopping_cart_link()
+        inventory_page.check_cart_page()

@@ -10,9 +10,6 @@ class Inventory(Base):
     LINK = 'https://www.saucedemo.com/inventory.html'
     LINK_CLICK_ABOUT = 'https://saucelabs.com/'
     LINK_CLICK_SHOPPING_CART_CONTAINER = 'https://www.saucedemo.com/cart.html'
-    # URL_FACEBOOK = 'https://web.facebook.com/saucelabs?_rdc=1&_rdr'
-    # URL_LINKEDIN = 'https://www.linkedin.com/company/sauce-labs/?original_referer='
-    # URL_TWITTER = 'https://twitter.com/saucelabs'
 
     LINK_CLICK_LOGOUT = Base.LINK
 
@@ -22,24 +19,10 @@ class Inventory(Base):
     REMOVE_STATE = 'REMOVE'
     ADD_STATE = 'ADD TO CART'
 
-    # ABOUT_LINK = (By.CSS_SELECTOR, '#about_sidebar_link')
-    # ALL_ITEMS_LINK = (By.CSS_SELECTOR, '#inventory_sidebar_link')
     INVENTORY_ITEM_NAME = (By.CSS_SELECTOR, '.inventory_item_name')
 
     INVENTORY_ITEM_PRICE = (By.CSS_SELECTOR, '.inventory_item_price')
     INVENTORY_ITEM_PRICE_XPATH = (By.XPATH, '//div[@class="inventory_item_price"]')
-
-    # FACEBOOK_LINK = (By.CSS_SELECTOR, '.social_facebook a')
-    # LINKEDIN_LINK = (By.CSS_SELECTOR, '.social_linkedin a')
-    # TWITTER_LINK = (By.CSS_SELECTOR, '.social_twitter a')
-    # PARAMETRIZE_SOCIAL = [(FACEBOOK_LINK, Base.URL_FACEBOOK),
-    #                       pytest.param(LINKEDIN_LINK, Base.URL_LINKEDIN, marks=pytest.mark.xfail),
-    #                       (TWITTER_LINK, Base.URL_TWITTER)]
-
-    # LOGOUT_LINK = (By.CSS_SELECTOR, '#logout_sidebar_link')
-    # MENU_SIDEBAR = (By.CSS_SELECTOR, '.bm-menu-wrap')
-    # MENU_SIDEBAR_BUTTON = (By.CSS_SELECTOR, '#react-burger-menu-btn')
-    # MENU_SIDEBAR_CLOSE = (By.CSS_SELECTOR, '#react-burger-cross-btn')
 
     PRODUCT_SORT_CONTAINER = (By.CSS_SELECTOR, '.product_sort_container')
     PRODUCT_SORT_BY_AZ = (By.CSS_SELECTOR, '[value="az"]')
@@ -63,8 +46,6 @@ class Inventory(Base):
                             (By.XPATH, '(// div[@class ="inventory_item_name"])[4]'),
                             (By.XPATH, '(// div[@class ="inventory_item_name"])[5]'),
                             (By.XPATH, '(// div[@class ="inventory_item_name"])[6]')]
-
-    # RESET_APP_STATE_LINK = (By.CSS_SELECTOR, '#reset_sidebar_link')
 
     ADD_SAUCE_LABS_BACKPACK_BUTTON = (By.CSS_SELECTOR, '#add-to-cart-sauce-labs-backpack')
     ADD_SAUCE_LABS_BIKE_LIGHT_BUTTON = (By.CSS_SELECTOR, '#add-to-cart-sauce-labs-bike-light')
@@ -92,7 +73,3 @@ class Inventory(Base):
                                            SAUCE_LABS_FLEECE_JACKET_BUTTON,
                                            SAUCE_LABS_ONESIE_BUTTON,
                                            SAUCE_LABS_T_SHIRT_BUTTON]
-
-    # SHOPPING_CART_BADGE = (By.CSS_SELECTOR, '.shopping_cart_badge')
-    #
-    # SHOPPING_CART_CONTAINER = (By.CSS_SELECTOR, '#shopping_cart_container')

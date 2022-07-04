@@ -6,7 +6,7 @@ from elements import Elements
 from elements import KeyboardActions
 from elements import MouseActions
 
-from src import GlobalErrorMessages
+from src import BasePageError
 from src import StatusCodes
 from src import Base
 
@@ -33,10 +33,110 @@ class BasePage:
         self.mouse_actions = None
         self.keyboard_actions = None
 
+    def click_button(self,
+                     element: tuple,
+                     expect_url: str,
+                     error_message: str) -> None:
+        self.elements.wait_element_to_be_clickable(*element)
+        self.elements.click(*element)
+        got_url = self.get_url()
+        assert got_url == expect_url, error_message
+
+    def click_close_menu_sidebar(self) -> None:
+        self.elements.wait_element_to_be_clickable(
+            *Base.MENU_SIDEBAR_CLOSE)
+        self.click_sidebar(
+            element=Base.MENU_SIDEBAR_CLOSE,
+            attribute_value=Base.ARIA_HIDDEN_VALUE_IF_SIDEBAR_HIDDEN,
+            error_message=BasePageError.SIDEBAR_IS_DISPLAYED.value)
+
+    def click_menu_sidebar(self) -> None:
+        self.click_sidebar(
+            element=Base.MENU_SIDEBAR_BUTTON,
+            attribute_value=Base.ARIA_HIDDEN_VALUE_IF_SIDEBAR_OPEN,
+            error_message=BasePageError.SIDEBAR_NOT_DISPLAYED.value)
+
+    def click_sidebar(self,
+                      element: tuple,
+                      attribute_value: str,
+                      error_message: str) -> None:
+        self.elements.check_is_displayed(*element)
+        self.elements.click(*element)
+        attribute = self.elements.get_to_attribute(
+            *Base.MENU_SIDEBAR,
+            Base.ATTRIBUTE_MENU_SIDEBAR_ARIA_HIDDEN)
+        assert attribute == attribute_value, error_message
+
+    def click_sidebar_all_items(self) -> None:
+        self.click_button(
+            element=Base.ALL_ITEMS_LINK,
+            expect_url=self.url,
+            error_message=BasePageError.WRONG_WEBPAGE.value)
+
+    #   Check how ill be work expect_url
+    def click_sidebar_about(self) -> None:
+        self.click_button(
+            element=Base.ABOUT_LINK,
+            expect_url=Base.LINK_CLICK_ABOUT,
+            error_message=BasePageError.WRONG_WEBPAGE.value)
+
+    def click_sidebar_logout(self) -> None:
+        self.click_button(
+            element=Base.LOGOUT_LINK,
+            expect_url=Base.LINK,
+            error_message=BasePageError.WRONG_WEBPAGE.value)
+
+    def click_sidebar_reset_app_state(self) -> None:
+        self.click_button(
+            element=Base.RESET_APP_STATE_LINK,
+            expect_url=self.get_url(),
+            error_message=BasePageError.WRONG_WEBPAGE.value)
+
+    def click_facebook_link(self) -> None:
+        self.click_social_link(
+            element=Base.FACEBOOK_LINK,
+            expect_url=Base.URL_FACEBOOK,
+            error_message=BasePageError.WRONG_WEBPAGE.value)
+
+    def click_linkedin_link(self) -> None:
+        self.click_social_link(
+            element=Base.LINKEDIN_LINK,
+            expect_url=Base.URL_LINKEDIN,
+            error_message=BasePageError.WRONG_WEBPAGE.value)
+
+    def click_twitter_link(self) -> None:
+        self.click_social_link(
+            element=Base.TWITTER_LINK,
+            expect_url=Base.URL_TWITTER,
+            error_message=BasePageError.WRONG_WEBPAGE.value)
+
+    def click_shopping_cart_link(self) -> None:
+        self.elements.check_is_displayed(*Base.SHOPPING_CART_LINK)
+        self.elements.click(*Base.SHOPPING_CART_LINK)
+
+    def click_social_link(self,
+                          element: tuple,
+                          expect_url: str,
+                          error_message: str) -> None:
+        self.elements.wait_element_to_be_clickable(*element)
+        original_window = self.browser.current_window_handle
+        self.elements.click(*element)
+        self.change_window(original_window)
+        got_url = self.get_url()
+        self.browser.close()
+        self.browser.switch_to.window(original_window)
+        assert got_url == expect_url, error_message
+
+    def check_that_all_was_reset_to_cart_badge(self) -> None:
+        state = self.elements.check_is_displayed(
+            *Base.SHOPPING_CART_BADGE, time=1)
+        assert state is False,\
+            BasePageError.WRONG_AFTER_RESET_SHOPPING_CART_BADGE.value
+
     def check_url(self) -> None:
         """Compares that specified url with the actual url."""
         Logger().info(f"Checks that specified url is: {self.url}.")
-        assert self.url == self.get_url(), GlobalErrorMessages.WRONG_PAGE
+        assert self.url == self.get_url(), BasePageError.WRONG_PAGE.value
 
     def check_status_code(self,
                           status: int = StatusCodes.OK.value) -> None:
@@ -48,7 +148,21 @@ class BasePage:
         status_code_webpage: int = requests.get(url=self.url).status_code
         Logger().info(f"Checking the page status code: {status_code_webpage}.")
         assert status_code_webpage == status, \
-            GlobalErrorMessages.WRONG_STATUS_CODE.value
+            BasePageError.WRONG_STATUS_CODE.value
+
+    #   move the method to the base_page class
+    #   change InventoryPageError.WRONG_VALUE_OF_THE_STATE by exception(tools/exceptions/.)
+    def change_window(self, original_window: str) -> None:
+        """Will change window in browser,
+        if link will be open in the new tab."""
+        for window_handle in self.browser.window_handles:
+            if window_handle != original_window:
+                self.browser.switch_to.window(window_handle)
+                break
+
+    def delete_all_in_shopping_cart_container(self):
+        self.click_menu_sidebar()
+        self.click_sidebar_reset_app_state()
 
     def enter_value(self, value: str, element) -> None:
         """
@@ -60,6 +174,9 @@ class BasePage:
 
         self.elements.click(*element)
         self.keyboard_actions.enter_text(value)
+
+    def get_shopping_cart_badge_value(self) -> int:
+        return int(self.elements.get_text(*Base.SHOPPING_CART_BADGE))
 
     def get_url(self) -> str:
         """Use for get current url."""

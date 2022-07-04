@@ -10,11 +10,9 @@ from elements import KeyboardActions
 
 from tools import Logger
 from tools import DataSettings
-from tools import RandomTools
-from tools import ComparisonTools
 
-from src import Inventory
-from src import InventoryPageError
+from src import Cart
+from src import CartPageError
 
 DATA = DataSettings.config_data()
 
@@ -29,3 +27,7 @@ class CartPage(BasePage):
         self.elements = Elements(self.browser)
         self.keyboard_actions = KeyboardActions(self.browser)
         self.mouse_actions = MouseActions(self.browser)
+
+    def get_quantity_descriptions(self):
+        x = self.browser.find_elements(*Cart.CART_QUANTITY)
+        print(x)
