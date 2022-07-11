@@ -132,6 +132,7 @@ class InventoryPage(BasePage):
         Performed the random quantity clicks by 'add to cart'.
         Will performed click only one time same button.
         """
+        self.elements.check_is_displayed(*Inventory.ADD_SAUCE_LABS_BACKPACK_BUTTON)
         number_of_add_to_cart = RandomTools.RandomValue.get_random_number(
             1, len(Inventory.ADD_SAUCE_LABS_PRODUCT_BUTTONS_LIST))
         Logger().info(f'Number of "add to cart": {number_of_add_to_cart}.')

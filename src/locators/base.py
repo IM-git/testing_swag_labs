@@ -30,6 +30,7 @@ class Base:
     FACEBOOK_LINK = (By.CSS_SELECTOR, '.social_facebook a')
     LINKEDIN_LINK = (By.CSS_SELECTOR, '.social_linkedin a')
     TWITTER_LINK = (By.CSS_SELECTOR, '.social_twitter a')
+    TITLE_SPAN = (By.CSS_SELECTOR, '.title')
     PARAMETRIZE_SOCIAL = [(FACEBOOK_LINK, URL_FACEBOOK),
                           pytest.param(LINKEDIN_LINK, URL_LINKEDIN, marks=pytest.mark.xfail),
                           (TWITTER_LINK, URL_TWITTER)]
@@ -37,3 +38,4 @@ class Base:
     SHOPPING_CART_BADGE = (By.CSS_SELECTOR, '.shopping_cart_badge')
     SHOPPING_CART_CONTAINER = (By.CSS_SELECTOR, '#shopping_cart_container')
     SHOPPING_CART_LINK = (By.CSS_SELECTOR, '.shopping_cart_link')
+

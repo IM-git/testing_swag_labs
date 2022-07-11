@@ -6,8 +6,12 @@ from .base import Base
 class Cart(Base):
 
     LINK = 'https://www.saucedemo.com/cart.html'
+    LINK_INVENTORY_PAGE = 'https://www.saucedemo.com/inventory.html'
+    LINK_CHECKOUT_STEP_ONE = 'https://www.saucedemo.com/checkout-step-one.html'
     CONTINUE_SHOPPING_BUTTON = (By.CSS_SELECTOR, '#continue-shopping')
     CHECKOUT_BUTTON = (By.CSS_SELECTOR, '#checkout')
+    PRODUCTS = 'products'
+    CHECKOUT_STEP_ONE_TITLE = 'checkout: your information'
 
     REMOVE_SAUCE_LABS_BACKPACK_BUTTON = (By.CSS_SELECTOR, '#remove-sauce-labs-backpack')
     REMOVE_SAUCE_LABS_BIKE_LIGHT_BUTTON = (By.CSS_SELECTOR, '#remove-sauce-labs-bike-light')
@@ -38,3 +42,5 @@ class Cart(Base):
                              (By.XPATH, '(// div[@class="inventory_item_price"])[4]'),
                              (By.XPATH, '(// div[@class="inventory_item_price"])[5]'),
                              (By.XPATH, '(// div[@class="inventory_item_price"])[6]')]
+
+    PRODUCT_SORT_CONTAINER = (By.CSS_SELECTOR, '.product_sort_container')

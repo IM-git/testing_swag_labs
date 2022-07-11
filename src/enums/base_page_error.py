@@ -11,6 +11,7 @@ class BasePageError(Enum):
     WRONG_AFTER_RESET_SHOPPING_CART_BADGE = "Shopping cart badge have to be empty."
     WRONG_STATUS_CODE = 'Received status code is not equal to expected!!'
     WRONG_TITLE_PAGE = 'Another page is open!!'
+    WRONG_TEXT = 'Got text is not equal to the expected one!!'
     WRONG_IS_DISPLAYED = 'The page is not loaded!!'
     WRONG_PAGE = 'Other page was expected to load!!'
     WRONG_WEBPAGE = "This isn't an expected webpage!!"

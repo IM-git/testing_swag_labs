@@ -127,6 +127,18 @@ class BasePage:
         self.browser.switch_to.window(original_window)
         assert got_url == expect_url, error_message
 
+    def check_text(self, element: tuple, expected_text: str) -> None:
+        """Two text values are compared."""
+        self.elements.check_is_displayed(*element)
+        got_text = self.elements.get_text(*element).lower()
+        print(f'got_text: {got_text}, expected_text: {expected_text}')
+        assert got_text == expected_text, BasePageError.WRONG_TEXT.value
+
+    def check_header_title(self, expected_text: str) -> None:
+        """Checks header title on the page."""
+        self.check_text(element=Base.TITLE_SPAN,
+                        expected_text=expected_text)
+
     def check_that_all_was_reset_to_cart_badge(self) -> None:
         state = self.elements.check_is_displayed(
             *Base.SHOPPING_CART_BADGE, time=1)
