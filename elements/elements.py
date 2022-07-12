@@ -20,20 +20,25 @@ class Elements:
     def check_is_displayed(self,
                            locator: str,
                            element: str,
-                           time: int = 10) -> bool:
+                           time: int | float = 10) -> bool:
         """Wait specified time or while file will be displayed."""
         Logger().info(f"Check is displayed element: {element}.")
         self.__browser.implicitly_wait(time)
         try:
             BaseElement.find_element(self.__browser, locator, element).is_displayed()
+            return True
         except NoSuchElementException:
             return False
-        return True
 
     def click(self, locator: str, element: str) -> None:
         """Click the specified element."""
         Logger().info(f"Click element: {element}.")
         BaseElement.find_element(self.__browser, locator, element).click()
+
+    def get_list_of_elements(self,
+                             locator: str,
+                             element: str,):
+        return BaseElement.find_elements(self.__browser, locator, element)
 
     def get_to_attribute(self,
                          locator: str,

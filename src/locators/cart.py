@@ -13,12 +13,20 @@ class Cart(Base):
     PRODUCTS = 'products'
     CHECKOUT_STEP_ONE_TITLE = 'checkout: your information'
 
+    REMOVE_BUTTON = (By.LINK_TEXT, 'Remove')
+    REMOVE_BUTTON_XPATH = (By.XPATH, '//button[text()="Remove"]')
     REMOVE_SAUCE_LABS_BACKPACK_BUTTON = (By.CSS_SELECTOR, '#remove-sauce-labs-backpack')
     REMOVE_SAUCE_LABS_BIKE_LIGHT_BUTTON = (By.CSS_SELECTOR, '#remove-sauce-labs-bike-light')
     REMOVE_SAUCE_LABS_BOLT_T_SHIRT_BUTTON = (By.CSS_SELECTOR, '#remove-sauce-labs-bolt-t-shirt')
     REMOVE_SAUCE_LABS_FLEECE_JACKET_BUTTON = (By.CSS_SELECTOR, '#remove-sauce-labs-fleece-jacket')
     REMOVE_SAUCE_LABS_ONESIE_BUTTON = (By.CSS_SELECTOR, '#remove-sauce-labs-onesie')
     REMOVE_SAUCE_LABS_T_SHIRT_BUTTON = (By.CSS_SELECTOR, '[id="remove-test.allthethings()-t-shirt-(red)"]')
+    REMOVE_BUTTONS = [REMOVE_SAUCE_LABS_BACKPACK_BUTTON,
+                      REMOVE_SAUCE_LABS_BIKE_LIGHT_BUTTON,
+                      REMOVE_SAUCE_LABS_BOLT_T_SHIRT_BUTTON,
+                      REMOVE_SAUCE_LABS_FLEECE_JACKET_BUTTON,
+                      REMOVE_SAUCE_LABS_ONESIE_BUTTON,
+                      REMOVE_SAUCE_LABS_T_SHIRT_BUTTON]
 
     SAUCE_LABS_BACKPACK_LINK = (By.CSS_SELECTOR, '#item_4_title_link')
     SAUCE_LABS_BIKE_LIGHT_LINK = (By.CSS_SELECTOR, '#item_0_title_link')

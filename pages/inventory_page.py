@@ -17,6 +17,7 @@ from src import Inventory
 from src import InventoryPageError
 
 DATA = DataSettings.config_data()
+QUANTITY_PRODUCT_BUTTONS = len(Inventory.ADD_SAUCE_LABS_PRODUCT_BUTTONS_LIST)
 
 
 class InventoryPage(BasePage):
@@ -127,14 +128,14 @@ class InventoryPage(BasePage):
             list_with_values.append(value)
         return list_with_values
 
-    def random_clicks_add_to_card(self) -> None:
+    def random_clicks_add_to_card(self, quantity: int = QUANTITY_PRODUCT_BUTTONS) -> None:
         """
         Performed the random quantity clicks by 'add to cart'.
         Will performed click only one time same button.
         """
         self.elements.check_is_displayed(*Inventory.ADD_SAUCE_LABS_BACKPACK_BUTTON)
         number_of_add_to_cart = RandomTools.RandomValue.get_random_number(
-            1, len(Inventory.ADD_SAUCE_LABS_PRODUCT_BUTTONS_LIST))
+            1, quantity)
         Logger().info(f'Number of "add to cart": {number_of_add_to_cart}.')
         for _ in range(number_of_add_to_cart):
             self.click_add_to_card()

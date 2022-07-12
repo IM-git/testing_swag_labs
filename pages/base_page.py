@@ -140,9 +140,10 @@ class BasePage:
                         expected_text=expected_text)
 
     def check_that_all_was_reset_to_cart_badge(self) -> None:
-        state = self.elements.check_is_displayed(
-            *Base.SHOPPING_CART_BADGE, time=1)
-        assert state is False,\
+        """Checking the absence of a shopping cart badge(Value=0)."""
+        check_of_cart_badge = self.elements.check_is_displayed(
+            *Base.SHOPPING_CART_BADGE, time=.1)
+        assert check_of_cart_badge is False,\
             BasePageError.WRONG_AFTER_RESET_SHOPPING_CART_BADGE.value
 
     def check_url(self) -> None:

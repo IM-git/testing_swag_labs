@@ -28,7 +28,7 @@ class CartPage(BasePage):
         self.keyboard_actions = KeyboardActions(self.browser)
         self.mouse_actions = MouseActions(self.browser)
 
-    def get_quantity_descriptions(self) -> None:
+    def compare_quantity_in_descriptions_and_badge(self) -> None:
         got_elements_in_description = self.browser.find_elements(
             *Cart.CART_QUANTITY)
         quantity_elements_in_description = len(got_elements_in_description)
@@ -54,3 +54,12 @@ class CartPage(BasePage):
                           error_message=CartPageError.WRONG_WEBPAGE.value)
         self.elements.check_is_displayed(*Cart.TITLE_SPAN)
         self.check_header_title(Cart.PRODUCTS)
+
+    def click_remove_button(self):
+        got_elements_in_description = self.elements.get_list_of_elements(
+            *Cart.REMOVE_BUTTON_XPATH)
+        quantity = len(got_elements_in_description)
+        print(f'QUANTITY: {quantity}')
+        for _ in range(quantity):
+            self.elements.wait_element_to_be_clickable(*Cart.REMOVE_BUTTON_XPATH)
+            self.elements.click(*Cart.REMOVE_BUTTON_XPATH)
