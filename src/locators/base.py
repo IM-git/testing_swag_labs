@@ -14,7 +14,7 @@ class Base:
     REMOVE_STATE = 'REMOVE'
     ADD_STATE = 'ADD TO CART'
 
-    URL_FACEBOOK = 'https://web.facebook.com/saucelabs?_rdc=1&_rdr'
+    URL_FACEBOOK = 'https://www.facebook.com/saucelabs'
     URL_LINKEDIN = 'https://www.linkedin.com/company/sauce-labs/?original_referer='
     URL_TWITTER = 'https://twitter.com/saucelabs'
 
