@@ -20,3 +20,20 @@ class RandomTools:
             quantity = len(values) - 1
             num = random.randint(0, quantity)
             return values[num]
+
+        @staticmethod
+        def get_random_name_from_dictionary(values):
+            gender = random.choice(list(values.keys()))
+            name = random.choice(values[gender])
+            return name
+
+
+if __name__ == '__main__':
+    list_name = ['Abigail', 'Ava', 'Airi', 'Alexa', 'Alexandra', 'Alexis',
+                 'Alice', 'Alia', 'Amelia', 'Amia', 'Angelina', 'Anna',
+                 'Ariana', 'Briana', 'Brooke']
+    dict_names = {"girls": ["Abigail", "Ava", "Airi", "Alexa", "Alexandra"],
+                  "boys": ["Adam", "Aaron", "Adrian", "Aidan", "Alex"]
+                  }
+    print(RandomTools.RandomValue.get_random_value_from_sequence(list_name))
+    print(RandomTools.RandomValue.get_random_name_from_dictionary(dict_names))

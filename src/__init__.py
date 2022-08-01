@@ -6,6 +6,7 @@ from .locators.login import Login
 from .locators.cart import Cart
 from .locators.inventory import Inventory
 from .locators.checkout_step_one import CheckoutStepOne
+from .locators.checkout_step_two import CheckoutStepTwo
 
 from src.enums.base_page_error import BasePageError
 from src.enums.inventory_page_error import InventoryPageError

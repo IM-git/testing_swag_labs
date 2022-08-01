@@ -17,4 +17,33 @@ class TestCheckoutStepOne:
         checkout_step_one = CheckoutStepOnePage(browser, CheckoutStepOne.LINK)
         checkout_step_one.open_page()
         checkout_step_one.check_url()
+        checkout_step_one.check_displayed_checkout_info()
         time.sleep(1)
+
+    def test_filling_out_form(self, browser):
+        checkout_step_one = CheckoutStepOnePage(browser, CheckoutStepOne.LINK)
+        checkout_step_one.open_page()
+        checkout_step_one.check_url()
+        checkout_step_one.check_displayed_checkout_info()
+        checkout_step_one.enter_first_name()
+        checkout_step_one.enter_last_name()
+        checkout_step_one.enter_postal_code()
+
+    def test_cancel_button(self, browser):
+        checkout_step_one = CheckoutStepOnePage(browser, CheckoutStepOne.LINK)
+        checkout_step_one.open_page()
+        checkout_step_one.check_url()
+        checkout_step_one.check_displayed_checkout_info()
+        checkout_step_one.click_cancel()
+        checkout_step_one.check_cart_page()
+
+    def test_continue_button(self, browser):
+        checkout_step_one = CheckoutStepOnePage(browser, CheckoutStepOne.LINK)
+        checkout_step_one.open_page()
+        checkout_step_one.check_url()
+        checkout_step_one.check_displayed_checkout_info()
+        checkout_step_one.enter_first_name()
+        checkout_step_one.enter_last_name()
+        checkout_step_one.enter_postal_code()
+        checkout_step_one.click_continue()
+        checkout_step_one.check_checkout_step_two_page()

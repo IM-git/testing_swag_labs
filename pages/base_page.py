@@ -131,7 +131,12 @@ class BasePage:
         """Two text values are compared."""
         self.elements.check_is_displayed(*element)
         got_text = self.elements.get_text(*element).lower()
-        print(f'got_text: {got_text}, expected_text: {expected_text}')
+        assert got_text == expected_text, BasePageError.WRONG_TEXT.value
+
+    def check_absence_of_text(self, element: tuple, expected_text: str) -> None:
+        """Check that field is empty."""
+        self.elements.check_is_displayed(*element)
+        got_text = self.elements.get_text(*element).lower()
         assert got_text == expected_text, BasePageError.WRONG_TEXT.value
 
     def check_header_title(self, expected_text: str) -> None:
@@ -185,7 +190,8 @@ class BasePage:
         """
         Logger().info(f"Enter the value in the '{element[1]}' field.")
 
-        self.elements.click(*element)
+        # self.elements.click(*element)
+        self.mouse_actions.double_click(element)
         self.keyboard_actions.enter_text(value)
 
     def get_shopping_cart_badge_value(self) -> int:
