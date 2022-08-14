@@ -4,7 +4,10 @@ from tools import Browser
 from tools import DataSettings
 
 from pages import LoginPage
+from pages import InventoryPage
+
 from src import Login
+
 from settings import LOGIN_STANDARD, PASSWORD
 
 
@@ -23,4 +26,5 @@ def browser():
 
 @pytest.fixture
 def authorization(browser):
+    """Using for authorization on the site(standard option)."""
     LoginPage(browser, Login.LINK).authorization(LOGIN_STANDARD, PASSWORD)

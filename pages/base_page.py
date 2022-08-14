@@ -190,7 +190,6 @@ class BasePage:
         """
         Logger().info(f"Enter the value in the '{element[1]}' field.")
 
-        # self.elements.click(*element)
         self.mouse_actions.double_click(element)
         self.keyboard_actions.enter_text(value)
 

@@ -85,7 +85,7 @@ class TestInventoryPage:
         #   need to find other realization, because it isn't pageobject.
         inventory_page.click_social_link(element, expect_url, InventoryPageError.WRONG_WEBPAGE.value)
 
-    # @pytest.mark.xfail(reason="In the progress to correction.")
+    @pytest.mark.xfail(reason="In the progress to correction.")
     def test_close_menu_sidebar(self, browser):
         inventory_page = InventoryPage(browser, Inventory.LINK)
         inventory_page.check_url()

@@ -84,10 +84,8 @@ class InventoryPage(BasePage):
             except NoSuchElementException:
                 print(InventoryPageError.WRONG_VALUE_OF_THE_STATE.value)
 
-    def click_add_to_card(self) -> None:
-        values = Inventory.ADD_SAUCE_LABS_PRODUCT_BUTTONS_LIST
-        value = RandomTools.RandomValue.get_random_value_from_sequence(values)
-        values.remove(value)
+    def click_add_to_card(self, quantity: int) -> None:
+        value = Inventory.ADD_SAUCE_LABS_PRODUCT_BUTTONS_LIST[quantity]
         self.check_value_cart(value[0], Inventory.ADD_STATE)
         self.elements.click(*value[0])
         self.check_value_cart(value[1], Inventory.REMOVE_STATE)
@@ -137,6 +135,6 @@ class InventoryPage(BasePage):
         number_of_add_to_cart = RandomTools.RandomValue.get_random_number(
             1, quantity)
         Logger().info(f'Number of "add to cart": {number_of_add_to_cart}.')
-        for _ in range(number_of_add_to_cart):
-            self.click_add_to_card()
+        for num in range(number_of_add_to_cart):
+            self.click_add_to_card(num)
         self.check_shopping_cart_badge(number_of_add_to_cart)
