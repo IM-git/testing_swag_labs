@@ -38,9 +38,9 @@ class CheckoutStepTwoPage(BasePage):
         self.elements.check_is_displayed(*CheckoutStepTwo.FINISH_BUTTON)
         self.elements.click(*CheckoutStepTwo.FINISH_BUTTON)
 
-    def check_checkout_step_one_page(self):
+    def check_checkout_inventory_page(self):
         got_url = self.get_url()
-        assert got_url == CheckoutStepTwo.LINK_CHECKOUT_STEP_ONE,\
+        assert got_url == CheckoutStepTwo.LINK_CHECKOUT_INVENTORY,\
             CheckoutStepTwoPageError.WRONG_WEBPAGE.value
 
     def check_checkout_complete_page(self):

@@ -11,7 +11,6 @@ from src import CheckoutComplete
 
 @allure.feature("Checkout-Complete page.")
 @allure.link(url=CheckoutComplete.LINK, name='CHECKOUT_COMPLETE_PAGE_LINK')
-@pytest.mark.usefixtures("authorization")
 class TestCheckoutComplete:
 
     def test_open_checkout_complete_test(self, browser):

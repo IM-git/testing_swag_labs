@@ -12,7 +12,6 @@ from src import InventoryPageError
 
 @allure.feature("Inventory page.")
 @allure.link(url=Inventory.LINK, name='INVENTORY_PAGE_LINK')
-@pytest.mark.usefixtures("authorization")
 class TestInventoryPage:
     """
     Testing of the inventory page.

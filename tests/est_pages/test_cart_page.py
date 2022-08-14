@@ -12,7 +12,6 @@ from src import Cart
 
 @allure.feature("Cart page.")
 @allure.link(url=Cart.LINK, name='CART_PAGE_LINK')
-@pytest.mark.usefixtures("authorization")
 class TestCartPage:
 
     def test_open_cart_page(self, browser):
@@ -69,4 +68,4 @@ class TestCartPage:
         cart_page.check_url()
         cart_page.check_checkout_button()
         cart_page.compare_quantity_in_descriptions_and_badge()
-        cart_page.delete_all_in_shopping_cart_container()
+        InventoryPage(browser).delete_all_in_shopping_cart_container()
